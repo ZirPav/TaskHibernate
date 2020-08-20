@@ -6,6 +6,7 @@ import jm.task.core.jdbc.util.Util;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 public class UserDaoJDBCImpl extends Util implements UserDao {
 
@@ -17,16 +18,17 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void createUsersTable() {
 
-        String sqlCreate = "CREATE TABLE users2 " +
-                "(id INTEGER not NULL auto_increment, " +
-                "name VARCHAR(50), " +
-                "lastName VARCHAR(50), " +
+        String sqlCreate = "CREATE TABLE users " +
+                "(id INTEGER not NULL auto_increment primary key, " +
+                "name VARCHAR(255) not null , " +
+                "lastName VARCHAR(255) not null , " +
                 "age INTEGER)";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlCreate)) {
-            preparedStatement.execute();
+        try (PreparedStatement statement = connection.prepareStatement(sqlCreate)) {
+            statement.executeUpdate();
+            System.out.println("Table successfully created...");
         } catch (SQLException e) {
-
+            System.out.println("Таблица не создана или она уже есть.");
         }
 
     }
@@ -45,7 +47,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
 
-        String sqlSave = "INSERT INTO users.users (name, last_name, age) values (?, ?, ?);";
+        String sqlSave = "INSERT INTO users.users (name, lastName, age) values (?, ?, ?);";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlSave)) {
 
@@ -76,7 +78,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public List<User> getAllUsers() {
         List<User> allUsers = new ArrayList<>();
 
-        String sqlUsers = "SELECT id, name, LAST_NAME, age FROM users.users";
+        String sqlUsers = "SELECT id, name, lastName, age FROM users.users";
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sqlUsers);
@@ -86,7 +88,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
                 user.setId(resultSet.getLong("id"));
                 user.setName(resultSet.getString("name"));
-                user.setLastName(resultSet.getString("last_name"));
+                user.setLastName(resultSet.getString("lastName"));
                 user.setAge(resultSet.getByte("age"));
 
                 allUsers.add(user);

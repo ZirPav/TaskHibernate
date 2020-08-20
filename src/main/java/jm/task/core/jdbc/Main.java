@@ -18,6 +18,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        userService.createUsersTable();
+
         /*userService.createUsersTable();
 
         userService.saveUser(testName, testLastName, testAge);
@@ -44,11 +46,8 @@ public class Main {
         //userService.removeUserById(2);
 
 
-        userService.dropUsersTable();
-        userService.createUsersTable();
-        userService.saveUser(testName, testLastName, testAge);
-        List<User> userList = userService.getAllUsers();
 
-        System.out.println(userList.size());
+
+
     }
 }
