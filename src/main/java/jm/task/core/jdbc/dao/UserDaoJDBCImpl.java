@@ -24,8 +24,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
                 "lastName VARCHAR(255) not null , " +
                 "age INTEGER)";
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlCreate)) {
-            statement.executeUpdate();
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sqlCreate);
             System.out.println("Таблица успешно создана.");
         } catch (SQLException e) {
             System.out.println("Таблица не создана или она уже есть.");
