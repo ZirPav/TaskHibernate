@@ -10,7 +10,7 @@ import java.util.SortedSet;
 
 public class UserDaoJDBCImpl extends Util implements UserDao {
 
-    Connection connection = getConnection();
+    private Connection connection = getConnection();
 
     public UserDaoJDBCImpl() {
 

@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        userService.createUsersTable();
+       userService.createUsersTable();
 
         userService.saveUser("Pavel", "Ziryukin", (byte) 27);
         System.out.printf("User с именем - %s добавлен в базу%n", userService.getAllUsers().get(0).getName());
