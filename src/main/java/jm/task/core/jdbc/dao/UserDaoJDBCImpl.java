@@ -26,7 +26,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
         try (PreparedStatement statement = connection.prepareStatement(sqlCreate)) {
             statement.executeUpdate();
-            System.out.println("Table successfully created...");
+            System.out.println("Таблица успешно создана.");
         } catch (SQLException e) {
             System.out.println("Таблица не создана или она уже есть.");
         }
@@ -37,10 +37,11 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
         String sqlDrop = "DROP TABLE users.users";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlDrop)) {
-            preparedStatement.execute();
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sqlDrop);
+            System.out.println("Таблица удалена.");
         } catch (SQLException e) {
-
+            System.out.println("Таблица не удалена или её уже нет.");
         }
 
     }
@@ -57,7 +58,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Сохранение не удалось.");
         }
 
     }
@@ -70,7 +71,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Удаление пользователя не удалось.");
         }
 
     }
@@ -94,7 +95,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
                 allUsers.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("При получении списка пользователей произошла ошибка.");
         }
         return allUsers;
     }
@@ -103,10 +104,11 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
         String sqlClean = "TRUNCATE TABLE users.users";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlClean)) {
-            preparedStatement.execute();
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sqlClean);
+            System.out.println("Очистка таблицы прошла успешно.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Отчистка таблицы не удалась.");
         }
     }
 }

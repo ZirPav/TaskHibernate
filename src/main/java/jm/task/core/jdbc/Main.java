@@ -12,42 +12,27 @@ public class Main {
 
     private static final UserService userService = new UserServiceImpl();
 
-    private static final String testName = "Ivan";
-    private static final String testLastName = "Ivanov";
-    private static final byte testAge = 5;
 
     public static void main(String[] args) {
 
         userService.createUsersTable();
 
-        /*userService.createUsersTable();
-
-        userService.saveUser(testName, testLastName, testAge);
         userService.saveUser("Pavel", "Ziryukin", (byte) 27);
-
-        userService.saveUser("Artem", "Ola", (byte) 31);
+        System.out.println(String.format("User с именем - %s добавлен в базу", userService.getAllUsers().get(0).getName()));
+        userService.saveUser("Artem", "Olaf", (byte) 31);
+        System.out.println(String.format("User с именем - %s добавлен в базу", userService.getAllUsers().get(1).getName()));
         userService.saveUser("Olga", "Liona", (byte) 25);
+        System.out.println(String.format("User с именем - %s добавлен в базу", userService.getAllUsers().get(2).getName()));
+        userService.saveUser("Maia", "Soana", (byte) 35);
+        System.out.println(String.format("User с именем - %s добавлен в базу", userService.getAllUsers().get(3).getName()));
 
-
-        */
-
-/*        List<User> list = userService.getAllUsers();
+        List<User> list = userService.getAllUsers();
         for (User user : list) {
             System.out.println(user);
-        }*/
+        }
 
-        //userService.cleanUsersTable();
-
-        //userService.dropUsersTable();
-
-        /*userService.saveUser("Pavel", "Ziryukin", (byte) 27);
-        userService.saveUser("Artem", "Ola", (byte) 31);
-        userService.saveUser("Olga", "Liona", (byte) 25);*/
-        //userService.removeUserById(2);
-
-
-
-
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
 
     }
 }
