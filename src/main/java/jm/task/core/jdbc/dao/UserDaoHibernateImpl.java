@@ -22,13 +22,11 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        String sqlCreate = "CREATE TABLE IF NOT EXISTS users " +
+        session.createSQLQuery("CREATE TABLE IF NOT EXISTS users " +
                 "(id INTEGER not NULL auto_increment primary key, " +
                 "name VARCHAR(255) not null , " +
                 "lastName VARCHAR(255) not null , " +
-                "age INTEGER)";
-
-        session.createSQLQuery(sqlCreate).executeUpdate();
+                "age INTEGER)").executeUpdate();
         transaction.commit();
         System.out.println("Таблица существует.");
         session.close();
@@ -41,8 +39,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        String sqlDrop = "DROP TABLE IF EXISTS users";
-        session.createSQLQuery(sqlDrop).executeUpdate();
+        session.createSQLQuery("DROP TABLE IF EXISTS users").executeUpdate();
         transaction.commit();
         System.out.println("Таблица не существует.");
         session.close();
@@ -92,10 +89,8 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        String sqlClean = "TRUNCATE TABLE users";
-
         try {
-            session.createSQLQuery(sqlClean).executeUpdate();
+            session.createQuery("DELETE FROM User").executeUpdate();
             transaction.commit();
             System.out.println("Таблица была очищена.");
         } catch (Exception e) {
